@@ -1,0 +1,8 @@
+{
+    "name": "winponta/cani",
+    "autoload": {
+        "psr-4": {
+            "Winponta\\Cani\\": "src/"
+        }
+    }
+}
