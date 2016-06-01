@@ -17,6 +17,10 @@ class CaniServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
+        $this->initializeResources();
+    }
+
+    private function initializeResources() {
         // incluindo as rotas padrões
         include __DIR__ . '/../Http/routes.php';
 
@@ -31,11 +35,11 @@ class CaniServiceProvider extends ServiceProvider {
         // usuário deste pacote deseje alterá-las na sua aplicação
         $this->publishes([
             __DIR__ . '/views' => base_path('resources/views/vendor/winponta/cani'),
-            ], 'views');
-        
+                ], 'views');
+
         $this->publishes([
             __DIR__ . '/config' => config_path(),
-        ], 'config');
+                ], 'config');
     }
 
     /**
@@ -44,8 +48,11 @@ class CaniServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-      //  $this->app->make('Winponta\Cani\Http\Controllers\CaniController');
-
+        $this->app->singleton('cani', function ($app) {
+            return new \Winponta\Cani\Cani($app, $app['defender.role'], $app['defender.permission']);
+        });
+        
+        //  $this->app->make('Winponta\Cani\Http\Controllers\CaniController');
 //        $this->app->singleton('Riak\Contracts\Connection', function ($app) {
 //            return new Connection(config('riak'));
 //        });
