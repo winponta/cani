@@ -2,14 +2,14 @@
 
 namespace Winponta\Cani;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 /**
  * Cani ServiceProvider
  *
  * @author ademir.mazer.jr@gmail.com
  */
-class ServiceProvider extends ServiceProvider {
+class ServiceProvider extends LaravelServiceProvider {
 
     /**
      * Bootstrap the application services.
