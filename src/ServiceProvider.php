@@ -22,13 +22,13 @@ class ServiceProvider extends LaravelServiceProvider {
 
     private function initializeResources() {
         // incluindo as rotas padrões
-        include __DIR__ . '/../Http/routes.php';
+        include __DIR__ . '/Http/routes.php';
 
         // registra o caminho das visões deste pacote
         $this->loadViewsFrom(__DIR__ . '/views', 'cani');
 
         $this->mergeConfigFrom(
-                __DIR__ . '/../config/cani.php', 'cani'
+                __DIR__ . '/config/cani.php', 'cani'
         );
 
         // define um diretório para publicar as visões e configurações caso o desenvolvedor
