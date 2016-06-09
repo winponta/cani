@@ -46,11 +46,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authorization Tables
+    | Authorization Collections configuration
     |--------------------------------------------------------------------------
     */
 
-    'table_names' => [
+    'collections' => [
 
         /*
         |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
         |
         */
 
-        'user_has_permissions' => 'user_has_permissions',
+        'user_permissions_propertie' => 'permissions',
 
         /*
         |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Role Permissions Table
+        | Role propertie in Permissions Table
         |--------------------------------------------------------------------------
         |
         | When using the "HasRoles" trait from this package, we need to know which
@@ -127,7 +127,7 @@ return [
         |
         */
 
-        'role_has_permissions' => 'role_has_permissions',
+        'role_permissions_propertie' => 'permissions',
 
     ],
 
