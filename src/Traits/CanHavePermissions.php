@@ -29,7 +29,7 @@ trait CanHavePermissions
      *
      * @return HasPermissions
      */
-    public function dettachPermission($permission)
+    public function detachPermission($permission)
     {
         $this->permissions()->detach($this->getStoredPermission($permission));
 
