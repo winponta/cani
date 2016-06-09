@@ -41,8 +41,11 @@ class Permission extends Model implements PermissionContract {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles() {
+        $roleClass = config('cani.models.role');
+        $rolePropertieInPermission = config('cani.collections.role_permissions_propertie');
+        
         return $this->belongsToMany(
-                        config('cani.models.role'), config('cani.table_names.role_has_permissions')
+                        $roleClass, null, $rolePropertieInPermission . '._id'
         );
     }
 
@@ -53,7 +56,9 @@ class Permission extends Model implements PermissionContract {
      */
     public function users() {
         return $this->belongsToMany(
-                        config('auth.model') ? : config('auth.providers.users.model'), config('cani.table_names.user_has_permissions')
+                        config('auth.model') ? : config('auth.providers.users.model'), 
+                        null,
+                        config('cani.collections.user_permissions_propertie') . '_id'
         );
     }
 
