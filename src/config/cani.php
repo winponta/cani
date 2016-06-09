@@ -36,11 +36,11 @@ return [
         | is often just the "Role" model but you may use whatever you like.
         |
         | The model you want to use as a Role model needs to implement the
-        | `Spatie\Permission\Contracts\Role` contract.
+        | `Winponta\Cani\Models\Jenssegers\Mongodb\Contracts\Role` contract.
         |
         */
 
-        'role' => Spatie\Permission\Models\Role::class,
+        'role' => Winponta\Cani\Models\Jenssegers\Mongodb\Role::class,
 
     ],
 
@@ -75,7 +75,7 @@ return [
         |
         */
 
-        'roles' => 'roles',
+        'roles' => 'cani_roles',
 
         /*
         |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
         |
         */
 
-        'permissions' => 'permissions',
+        'permissions' => 'cani_permissions',
 
         /*
         |--------------------------------------------------------------------------
