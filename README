@@ -1,1 +1,9 @@
-WIP -- this project is in its initial development, please come back in a few days
+# Cani (Can I)
+
+Cani, or Can I project, is a Laravel 5 project to implement a simple ACL based on
+noSql databases. The first implementation is focused on MongoDB, 
+using [jenssegers/mongodb](https://github.com/jenssegers/laravel-mongodb) driver.
+
+## Atention
+
+**WIP -- this project is in its initial development, please come back in a few days**
