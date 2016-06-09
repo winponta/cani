@@ -114,7 +114,7 @@ return [
         |
         */
 
-        'user_has_roles' => 'user_has_roles',
+        'user_roles_propertie' => 'roles',
 
         /*
         |--------------------------------------------------------------------------
