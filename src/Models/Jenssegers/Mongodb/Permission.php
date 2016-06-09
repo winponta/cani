@@ -32,7 +32,7 @@ class Permission extends Model implements PermissionContract {
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
 
-        $this->setTable(config('cani.table_names.permissions'));
+        $this->setTable(config('cani.collections.permissions'));
     }
 
     /**
