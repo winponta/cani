@@ -5,14 +5,14 @@ namespace Winponta\Cani\Models\Jenssegers\Mongodb;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Winponta\Cani\Contracts\Role as RoleContract;
 use Winponta\Cani\Exceptions\RoleDoesNotExist;
-use Winponta\Cani\Traits\HasPermissions;
+use Winponta\Cani\Traits\CanHavePermissions;
 use Winponta\Cani\Traits\RefreshesPermissionCache;
 
 /**
  * Base Role class to use with Jenssegers/Mongodb driver.
  */
 class Role extends Model implements RoleContract {
-    use HasPermissions;
+    use CanHavePermissions;
     use RefreshesPermissionCache;
 
     /**
