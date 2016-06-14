@@ -18,7 +18,7 @@ trait CanHaveRoles
     public function roles()
     {
         return $this->embedsMany(
-            config('cani.collections.user_roles_propertie')
+            config('cani.models.role')
         );
     }
 
@@ -30,7 +30,7 @@ trait CanHaveRoles
     public function permissions()
     {
         return $this->embedsMany(
-            config('cani.collections.user_permissions_propertie')
+            config('cani.models.permission')
         );
     }
 
@@ -198,5 +198,19 @@ trait CanHaveRoles
         }
 
         return $role;
+    }
+    
+    public function setAsSuperUser() {
+        $roles = $this->roles;
+        
+        if ( $roles->where('name', 'superuser')->isEmpty() ) {
+            $role = new \Winponta\Cani\Models\Jenssegers\Mongodb\Role();
+            $role->name = 'superuser';
+            $this->roles()->save($role);            
+        }
+    }
+    
+    public function isSuperUser() {
+        return $this->hasRole('superuser');
     }
 }
