@@ -206,7 +206,9 @@ trait CanHaveRoles
         if ( $roles->where('name', 'superuser')->isEmpty() ) {
             $role = new \Winponta\Cani\Models\Jenssegers\Mongodb\Role();
             $role->name = 'superuser';
-            $this->roles()->save($role);            
+            $role->label = 'Super User';
+            $role->description = 'User that has the power to control all app';
+            $this->roles()->associate($role);            
         }
     }
     
