@@ -134,7 +134,7 @@ trait CanHaveRoles
     public function hasPermissionTo($permission)
     {
         if (is_string($permission)) {
-            $permission = app(Permission::class)->findByName($permission);
+            $permission = app(config('cani.models.permission'))->findByName($permission);
         }
 
         return $this->hasDirectPermission($permission) || $this->hasPermissionViaRole($permission);
@@ -176,7 +176,7 @@ trait CanHaveRoles
     protected function hasDirectPermission($permission)
     {
         if (is_string($permission)) {
-            $permission = app(Permission::class)->findByName($permission);
+            $permission = app(config('cani.models.permission'))->findByName($permission);
 
             if (!$permission) {
                 return false;
@@ -194,7 +194,7 @@ trait CanHaveRoles
     protected function getStoredRole($role)
     {
         if (is_string($role)) {
-            return app(\Winponta\Cani\Models\Jenssegers\Mongodb\Role::class)
+            return app(config('cani.models.permission'))
                     ->findByName($role);
         }
 
@@ -209,7 +209,7 @@ trait CanHaveRoles
             $role->name = 'superuser';
             $role->label = 'Super User';
             $role->description = 'User that has the power to control all app';
-            $this->roles()->associate($role);            
+            $this->roles()->save($role);            
         }
     }
     
