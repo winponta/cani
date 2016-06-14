@@ -194,7 +194,8 @@ trait CanHaveRoles
     protected function getStoredRole($role)
     {
         if (is_string($role)) {
-            return app(Role::class)->findByName($role);
+            return app(\Winponta\Cani\Models\Jenssegers\Mongodb\Role::class)
+                    ->findByName($role);
         }
 
         return $role;
