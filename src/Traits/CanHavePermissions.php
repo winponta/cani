@@ -7,7 +7,7 @@ use Winponta\Cani\Contracts\Permission;
 trait CanHavePermissions
 {
     /**
-     * Grant the given permission to a role or user.
+     * Grant the given permission to a role or user, persist.
      *
      * @param  $permission
      *
@@ -16,6 +16,22 @@ trait CanHavePermissions
     public function attachPermission($permission)
     {
         $this->permissions()->save($this->getStoredPermission($permission));
+
+        $this->forgetCachedPermissions();
+
+        return $this;
+    }
+
+    /**
+     * Grant the given permission to a role or user, associate it on memory.
+     *
+     * @param  $permission
+     *
+     * @return HasPermissions
+     */
+    public function associatePermission($permission)
+    {
+        $this->permissions()->associate($this->getStoredPermission($permission));
 
         $this->forgetCachedPermissions();
 
