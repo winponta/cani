@@ -35,7 +35,7 @@ trait CanHaveRoles
     }
 
     /**
-     * Assign the given role to the user.
+     * Assign and persist the given role to the user.
      *
      * @param string|Role $role
      *
@@ -44,6 +44,18 @@ trait CanHaveRoles
     public function attachRole($role)
     {
         $this->roles()->save($this->getStoredRole($role));
+    }
+
+    /**
+     * Associate on memory the given role to the user.
+     *
+     * @param string|Role $role
+     *
+     * @return Role
+     */
+    public function associateRole($role)
+    {
+        $this->roles()->associate($this->getStoredRole($role));
     }
 
     /**
@@ -194,14 +206,14 @@ trait CanHaveRoles
     protected function getStoredRole($role)
     {
         if (is_string($role)) {
-            return app(config('cani.models.permission'))
+            return app(config('cani.models.role'))
                     ->findByName($role);
         }
 
         return $role;
     }
     
-    public function setAsSuperUser() {
+    protected function buildSuperUserRole() {
         $roles = $this->roles;
         
         if ( $roles->where('name', 'superuser')->isEmpty() ) {
@@ -209,7 +221,23 @@ trait CanHaveRoles
             $role->name = 'superuser';
             $role->label = 'Super User';
             $role->description = 'User that has the power to control all app';
-            $this->roles()->save($role);            
+            return $role;
+        }
+        
+        return false;
+    }
+
+    public function attachSuperUserRole() {
+        $role = $this->buildSuperUserRole();
+        if ($role) {
+            $this->roles()->save($role);
+        }
+    }
+    
+    public function associateSuperUserRole() {
+        $role = $this->buildSuperUserRole();
+        if ($role) {
+            $this->roles()->associate($role);
         }
     }
     
