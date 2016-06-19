@@ -5,20 +5,20 @@ namespace Winponta\Cani\Traits;
 use Winponta\Cani\Contracts\Permission;
 use Winponta\Cani\Contracts\Role;
 
-trait CanHaveRoles
-{
+trait CanHaveRoles {
+
     use CanHavePermissions;
-    use RefreshesPermissionCache;
+
+use RefreshesPermissionCache;
 
     /**
      * A user may have multiple roles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles()
-    {
+    public function roles() {
         return $this->embedsMany(
-            config('cani.models.role')
+                        config('cani.models.role')
         );
     }
 
@@ -27,10 +27,9 @@ trait CanHaveRoles
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function permissions()
-    {
+    public function permissions() {
         return $this->embedsMany(
-            config('cani.models.permission')
+                        config('cani.models.permission')
         );
     }
 
@@ -41,8 +40,7 @@ trait CanHaveRoles
      *
      * @return Role
      */
-    public function attachRole($role)
-    {
+    public function attachRole($role) {
         $this->roles()->save($this->getStoredRole($role));
     }
 
@@ -53,8 +51,7 @@ trait CanHaveRoles
      *
      * @return Role
      */
-    public function associateRole($role)
-    {
+    public function associateRole($role) {
         $this->roles()->associate($this->getStoredRole($role));
     }
 
@@ -65,8 +62,7 @@ trait CanHaveRoles
      *
      * @return mixed
      */
-    public function detachRole($role)
-    {
+    public function detachRole($role) {
         $this->roles()->detach($this->getStoredRole($role));
     }
 
@@ -77,8 +73,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    public function hasRole($roles)
-    {
+    public function hasRole($roles) {
         if (is_string($roles)) {
             return $this->roles->contains('name', $roles);
         }
@@ -101,14 +96,24 @@ trait CanHaveRoles
     }
 
     /**
+     * Determine if the user has (one of) the given role(s).
+     *
+     * @param string|array|Role|\Illuminate\Support\Collection $roles
+     *
+     * @return bool
+     */
+    public function canAct($role) {
+        return $this->hasRole($role);
+    }
+
+    /**
      * Determine if the user has any of the given role(s).
      *
      * @param string|array|Role|\Illuminate\Support\Collection $roles
      *
      * @return bool
      */
-    public function hasAnyRole($roles)
-    {
+    public function hasAnyRole($roles) {
         return $this->hasRole($roles);
     }
 
@@ -119,8 +124,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    public function hasAllRoles($roles)
-    {
+    public function hasAllRoles($roles) {
         if (is_string($roles)) {
             return $this->roles->contains('name', $roles);
         }
@@ -143,8 +147,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    public function hasPermissionTo($permission)
-    {
+    public function hasPermissionTo($permission) {
         if (is_string($permission)) {
             $permission = app(config('cani.models.permission'))->findByName($permission);
         }
@@ -161,8 +164,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    public function hasPermission($permission)
-    {
+    public function hasPermission($permission) {
         return $this->hasPermissionTo($permission);
     }
 
@@ -173,8 +175,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    protected function hasPermissionViaRole(Permission $permission)
-    {
+    protected function hasPermissionViaRole(Permission $permission) {
         return $this->hasRole($permission->roles);
     }
 
@@ -185,8 +186,7 @@ trait CanHaveRoles
      *
      * @return bool
      */
-    protected function hasDirectPermission($permission)
-    {
+    protected function hasDirectPermission($permission) {
         if (is_string($permission)) {
             $permission = app(config('cani.models.permission'))->findByName($permission);
 
@@ -203,27 +203,26 @@ trait CanHaveRoles
      *
      * @return Role
      */
-    protected function getStoredRole($role)
-    {
+    protected function getStoredRole($role) {
         if (is_string($role)) {
             return app(config('cani.models.role'))
-                    ->findByName($role);
+                            ->findByName($role);
         }
 
         return $role;
     }
-    
+
     protected function buildSuperUserRole() {
         $roles = $this->roles;
-        
-        if ( $roles->where('name', 'superuser')->isEmpty() ) {
+
+        if ($roles->where('name', 'superuser')->isEmpty()) {
             $role = new \Winponta\Cani\Models\Jenssegers\Mongodb\Role();
             $role->name = 'superuser';
             $role->label = 'Super User';
             $role->description = 'User that has the power to control all app';
             return $role;
         }
-        
+
         return false;
     }
 
@@ -233,15 +232,16 @@ trait CanHaveRoles
             $this->roles()->save($role);
         }
     }
-    
+
     public function associateSuperUserRole() {
         $role = $this->buildSuperUserRole();
         if ($role) {
             $this->roles()->associate($role);
         }
     }
-    
+
     public function isSuperUser() {
         return $this->hasRole('superuser');
     }
+
 }

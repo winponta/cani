@@ -49,7 +49,8 @@ class CaniServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->singleton('cani', function ($app) {
-            return new \Winponta\Cani\Cani($app, $app['defender.role'], $app['defender.permission']);
+            //return new \Winponta\Cani\Cani($app, $app['cani.models.role'], $app['cani.models.permission']);
+            return new \Winponta\Cani\Cani($app);
         });
         
         //  $this->app->make('Winponta\Cani\Http\Controllers\CaniController');
