@@ -38,8 +38,8 @@ class CaniServiceProvider extends ServiceProvider {
                 ], 'views');
 
         $this->publishes([
-            __DIR__ . '/config' => config_path(),
-                ], 'config');
+            __DIR__ . '/../config' => config_path(),
+        ], 'config');
     }
 
     /**
