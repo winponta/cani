@@ -19,7 +19,7 @@ In `composer.json`
 ```php
 "require": {
         ...
-        "winponta/cani": "dev-master",
+        "winponta/cani": "0.0.*",
         ...
     },
 ```
