@@ -62,7 +62,7 @@ trait CanHavePermissions
     protected function getStoredPermission($permission)
     {
         if (is_string($permission)) {
-            return app(Permission::class)->findByName($permission);
+            return app(config('cani.models.permission'))->findByName($permission);
         }
 
         return $permission;
