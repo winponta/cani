@@ -4,8 +4,10 @@ namespace Winponta\Cani\Traits;
 
 use Winponta\Cani\Contracts\Permission;
 
-trait CanHavePermissions
-{
+trait CanHavePermissions {
+
+    use RefreshesPermissionCache;
+
     /**
      * Grant the given permission to a role or user, persist.
      *
