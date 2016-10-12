@@ -7,10 +7,6 @@ use Winponta\Cani\Contracts\Role;
 
 trait CanHaveRoles {
 
-    use CanHavePermissions;
-
-use RefreshesPermissionCache;
-
     /**
      * A user may have multiple roles.
      *
